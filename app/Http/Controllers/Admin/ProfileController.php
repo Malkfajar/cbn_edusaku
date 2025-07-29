@@ -60,7 +60,7 @@ class ProfileController extends Controller
         return redirect()->route('admin.profile.edit')->with('status', 'Password berhasil diubah!');
     }
 
-   public function updatePhoto(Request $request)
+  public function updatePhoto(Request $request)
 {
     $request->validate([
         'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -68,14 +68,20 @@ class ProfileController extends Controller
 
     $user = Auth::user();
 
+    // Hapus foto lama jika ada (logika ini sudah benar)
     if ($user->profile_photo_path && Storage::disk('public')->exists($user->profile_photo_path)) {
         Storage::disk('public')->delete($user->profile_photo_path);
     }
 
+    // Simpan foto baru (logika ini sudah benar)
     $path = $request->file('photo')->store('profile-photos', 'public');
     
-    // UBAH BAGIAN INI: dari 'photo' menjadi 'profile_photo_path'
-    $user->update(['profile_photo_path' => $path]);
+    // --- PENYESUAIAN DI SINI ---
+    // Ganti metode update() dengan save() untuk memastikan data tersimpan.
+    // $user->update(['profile_photo_path' => $path]); // Baris lama kita ganti
+    
+    $user->profile_photo_path = $path; // Tetapkan path ke properti
+    $user->save();                     // Simpan model secara langsung
 
     return redirect()->route('admin.profile.edit')->with('status', 'Foto profil berhasil diperbarui!');
 }
