@@ -77,11 +77,3 @@ Route::get('reset-password/{identifier}', [LoginController::class, 'showResetFor
 // URL untuk update sekarang menyertakan {identifier} dan menunjuk ke metode baru
 Route::post('reset-password/{identifier}', [LoginController::class, 'performPasswordUpdate'])->name('password.perform_update');
 Route::post('/midtrans/notification', [MidtransController::class, 'notificationHandler'])->name('midtrans.notification');
-Route::get('/buat-storage-link', function () {
-    try {
-        Artisan::call('storage:link');
-        return 'Symbolic link successfully created.';
-    } catch (Exception $e) {
-        return 'Error creating symbolic link: ' . $e->getMessage();
-    }
-});
