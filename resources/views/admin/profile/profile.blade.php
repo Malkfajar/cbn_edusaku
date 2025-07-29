@@ -43,7 +43,7 @@
                 @csrf
                 <div class="relative inline-block mb-4 group">
                     {{-- ANIMASI: Gambar membesar saat di-hover --}}
-                    <img :src="newPhotoUrl || '{{ $user->photo_url }}'" alt="Foto Profil" class="h-32 w-32 rounded-full object-cover border-4 border-white shadow-lg transition-transform duration-300 group-hover:scale-105">
+                    <img :src="newPhotoUrl || '{{ $user->profile_photo_path ? asset('profile-photos/' . $user->profile_photo_path) : asset('images/default-avatar.png') }}'" alt="Foto Profil" class="h-32 w-32 rounded-full ..."> object-cover border-4 border-white shadow-lg transition-transform duration-300 group-hover:scale-105">
                 </div>
                 <input type="file" name="photo" class="hidden" x-ref="photoInput" @change="newPhotoUrl = URL.createObjectURL($event.target.files[0])" accept="image/*">
                 <div class="flex justify-center items-center gap-4 mt-2">

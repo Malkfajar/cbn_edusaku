@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File; // Pastikan ini ada
 
 class ProfileController extends Controller
 {
@@ -62,27 +63,30 @@ class ProfileController extends Controller
 
   public function updatePhoto(Request $request)
 {
+    // 1. Validasi file yang diunggah
     $request->validate([
         'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
     $user = Auth::user();
+    $folderPath = public_path('profile-photos');
 
-    // Hapus foto lama jika ada (logika ini sudah benar)
-    if ($user->profile_photo_path && Storage::disk('public')->exists($user->profile_photo_path)) {
-        Storage::disk('public')->delete($user->profile_photo_path);
+    // 2. Hapus foto lama jika ada
+    if ($user->profile_photo_path && File::exists($folderPath . '/' . $user->profile_photo_path)) {
+        File::delete($folderPath . '/' . $user->profile_photo_path);
     }
 
-    // Simpan foto baru (logika ini sudah benar)
-    $path = $request->file('photo')->store('profile-photos', 'public');
-    
-    // --- PENYESUAIAN DI SINI ---
-    // Ganti metode update() dengan save() untuk memastikan data tersimpan.
-    // $user->update(['profile_photo_path' => $path]); // Baris lama kita ganti
-    
-    $user->profile_photo_path = $path; // Tetapkan path ke properti
-    $user->save();                     // Simpan model secara langsung
+    // 3. Siapkan file baru dan buat nama unik
+    $file = $request->file('photo');
+    $fileName = uniqid() . '_' . time() . '.' . $file->getClientOriginalExtension();
 
-    return redirect()->route('admin.profile.edit')->with('status', 'Foto profil berhasil diperbarui!');
+    // 4. Pindahkan file baru langsung ke public/profile-photos
+    $file->move($folderPath, $fileName);
+
+    // 5. Simpan nama file baru ke database
+    $user->profile_photo_path = $fileName;
+    $user->save();
+
+    return back()->with('status', 'Foto profil berhasil diperbarui!');
 }
 }
