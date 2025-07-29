@@ -6,9 +6,9 @@
     use App\Http\Controllers\ProfileController;
     use App\Http\Controllers\PaymentController;
     use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-    use App\Http\Controllers\admin\MahasiswaController;
-    use App\Http\Controllers\admin\TagihanController;
-    use App\Http\Controllers\admin\LaporanController;
+    use App\Http\Controllers\Admin\MahasiswaController;
+    use App\Http\Controllers\Admin\TagihanController;
+    use App\Http\Controllers\Admin\LaporanController;
     use App\Http\Controllers\Api\NotificationController; 
     use App\Http\Controllers\MidtransController;
    
