@@ -34,7 +34,7 @@
         <aside class="fixed inset-y-0 left-0 bg-[#0b3d91] text-gray-300 w-64 p-6 flex-col z-30 transform transition-transform duration-500 transition-spring" :class="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}">
             {{-- Penambahan: animasi skala saat hover di area admin --}}
             <div class="flex flex-col items-center text-center mb-10">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-20 w-20 mb-3 object-contain transition-transform duration-300 hover:rotate-12">
+                <img src="{{ asset('images/Logo.png') }}" alt="Logo" class="h-20 w-20 mb-3 object-contain transition-transform duration-300 hover:rotate-12">
                 <span class="text-xl font-bold tracking-wider">ADMIN</span>
             </div>
 

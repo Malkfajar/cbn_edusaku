@@ -8,7 +8,7 @@
         <div class="w-full max-w-md text-center animate-fade-in" style="animation-duration: 1.5s;">
             <div class="mb-12">
                 {{-- Penambahan animasi: 'animate-bounce' untuk logo --}}
-                <img src="{{ asset('images/logo.png') }}" alt="Logo CBN Edusaku" class="h-32 mx-auto animate-bounce" onerror="this.style.display='none'; this.onerror=null;">
+                <img src="{{ asset('images/Logo.png') }}" alt="Logo CBN Edusaku" class="h-32 mx-auto animate-bounce" onerror="this.style.display='none'; this.onerror=null;">
                 {{-- Penambahan animasi: 'animate-fade-in-down' untuk teks judul dengan delay --}}
             <div class="mt-4 animate-fade-in-down" style="animation-delay: 0.5s;">
                 <h1 class="text-3xl lg:text-4xl font-light text-white leading-tight">Sistem Informasi Keuangan</h1>
